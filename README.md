@@ -1,2 +1,5 @@
-# pytesting
-Try out some pytest for the sake of learning it.
+# Pytesting
+
+A repository made to test/learn the pytest library.
+
+It has the book "Python testing with pytesting" as main source.
