@@ -8,7 +8,9 @@
 ---
 
 ## Setup The Enviroment {#setup}
-### Summary
+### Summary {#setup-summary}
+- [Summary](#setup-summary)
+
 - [Setup Venv](#setup-venv)
     - [Install Venv](#install-venv)
     - [Check Venv install](#check-venv-install)
@@ -48,24 +50,24 @@ $ source <path_to_venv_directory>/bin/activate
 #### Deactivate Venv
 To get out of the virtual enviroment run the code bellow.
 ```bash
-$ deactivate
+(<enviroment_name>) $ deactivate
 ```
 
 ### Setup Pytest
 #### Install Pytest
 Do it by running the code bellow inside the enviroment where it’s going to be used.
 ```bash
-$ pip install pytest
+(<enviroment_name>) $ pip install pytest
 ```
 
 #### Check Pytest Install
 Run the code bellow, inside the enviroment where the pytest is going to be used.
 ```bash
-$ pip show pytest
+(<enviroment_name>) $ pip show pytest
 ```
 Or
 ```bash
-$ pytest --version 
+(<enviroment_name>) $ pytest --version 
 ```
 
 ## How To Run / Use Pytest {#how}

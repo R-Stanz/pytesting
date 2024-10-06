@@ -14,8 +14,8 @@ It has the book "Python testing with pytesting" as main source.
 ### Done (Chapters)
 
 #### 1. Primary Power
-1. [ ] Getting Started With Pytest
-2. [ ] Writing Test Functions
+1. [x] Getting Started With Pytest
+2. [x] Writing Test Functions
 3. [ ] Pytest Fixtures
 4. [ ] Builtin Fixtures
 5. [ ] Parametrization
@@ -34,3 +34,5 @@ It has the book "Python testing with pytesting" as main source.
 14. [ ] Third-Party Plugins
 15. [ ] Builtin Plugins
 16. [ ] Advanced Parametrization
+
+	
