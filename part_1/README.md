@@ -70,13 +70,14 @@ Or
 (<enviroment_name>) $ pytest --version 
 ```
 
-## How To Run / Use Pytest <a href="#how"></a>
+## How To Run / Use Pytest <a name="how"></a>
 ---
-### Summary <a href="#how-summary"></a>
+### Summary <a name="how-summary"></a>
 - [Summary](#how-summary)
 - [Conventions](#conventions)
-- [Assert]()
-    - [Most common uses]()
+- [Assertions](#assertions)
+    - [Introduction]()
+    - [Uses](#assertion-uses)
 - [Mark decorator]()
 - [Testing](#testing)
     - [Testing a single file](#testing-a-single-file)
@@ -85,12 +86,27 @@ Or
     - [Most common Pytest flags](#most-common-pytest-flags)
 
 ### Conventions
-
 Pytest follows a few conventions for discovering test files (as explained on the [pytest documentation](https://docs.pytest.org/en/7.1.x/explanation/goodpractices.html)). Making it simple, the rules for pytest default discovery/conventions:
 
 - Test files must have the regex test_*.py or *_test.py in order to be found.
 - Functions and methods must start with test_ on their names.
 - Classes must start with Test prefix.
+
+### Assertions
+#### Introduction
+Python has a built-in tool named assert wich is used to check a set of defined conditions.
+For Example:
+```python
+def test_2_greater_than_3():
+	assert 2 > 3
+
+def test_3_greater_then_2():
+	assert 3 > 2
+```
+In this case once the pytest runs these functions it’ll get a failed test (for the test where if 2 > 3) and a success test (for the test where 3 > 2).
+
+#### Uses <a name="assertion-uses"></a>
+Assertions can be made with python operators. Besides that, they are commonly used together with the pytest mark decorator. See more more details at the [pytest documentation](https://docs.pytest.org/en/7.1.x/how-to/assert.html). 
 
 ### Testing
 #### Testing A Single File
