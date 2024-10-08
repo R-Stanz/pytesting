@@ -1,12 +1,13 @@
 # Part 1 - Recap
 ---
 
-## Summary
+## Summary <a name="recap-summary"></a>
+* [Summary](#recap-summary)
 * [Setup the enviroment](#setup)
 * [How to run/use pytests](#how)
 
 ---
-
+---
 ## Setup The Enviroment <a hreaf="#setup"></a>
 ### Summary <a href="#setup-summary"></a>
 - [Summary](#setup-summary)
@@ -22,6 +23,7 @@
     - [Install Pytest](#install-pytest)
     - [Check Pytest install](#check-pytest-intall)
 
+---
 ### Setup Venv 
 #### Install Venv
 Just run the command bellow.
@@ -53,6 +55,7 @@ To get out of the virtual enviroment run the code bellow.
 (<enviroment_name>) $ deactivate
 ```
 
+---
 ### Setup Pytest
 #### Install Pytest
 Do it by running the code bellow inside the enviroment where it’s going to be used.
@@ -70,6 +73,8 @@ Or
 (<enviroment_name>) $ pytest --version 
 ```
 
+---
+---
 ## How To Run / Use Pytest <a name="how"></a>
 ---
 ### Summary <a name="how-summary"></a>
@@ -85,6 +90,7 @@ Or
     - [Testing multiple files](#testing-multiple-files)
     - [Most common Pytest flags](#most-common-pytest-flags)
 
+---
 ### Conventions
 Pytest follows a few conventions for discovering test files (as explained on the [pytest documentation](https://docs.pytest.org/en/7.1.x/explanation/goodpractices.html)). Making it simple, the rules for pytest default discovery/conventions:
 
@@ -92,6 +98,7 @@ Pytest follows a few conventions for discovering test files (as explained on the
 - Functions and methods must start with test_ on their names.
 - Classes must start with Test prefix.
 
+---
 ### Assertions
 #### Introduction
 Python has a built-in tool named assert wich is used to check a set of defined conditions.
@@ -108,6 +115,7 @@ In this case once the pytest runs these functions it’ll get a failed test (for
 #### Uses <a name="assertion-uses"></a>
 Assertions can be made with python operators. Besides that, they are commonly used together with the pytest mark decorator. See more more details at the [pytest documentation](https://docs.pytest.org/en/7.1.x/how-to/assert.html). 
 
+---
 ### Testing
 #### Testing A Single File
 To test a single a file you should just be passing it’s location to the pytest, like on example code bellow.
@@ -150,3 +158,6 @@ On the code above, pytest will look for all tests that might have http or quick 
 2. **-vv**: Makes the pytest output even more verbose, in case of errors it will show each occurance that was different from what was expected.
 3. **-tb=no**: Turns off traceback messages of pytest.
 4. **-k**: Defines a search pattern for pytest searching of functions.
+
+ ---
+---
