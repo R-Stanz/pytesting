@@ -1,12 +1,10 @@
 # Part 1 - Recap
----
 
 ## Summary <a name="recap-summary"></a>
 * [Summary](#recap-summary)
 * [Setup the enviroment](#setup)
 * [How to run/use pytests](#how)
 
----
 ---
 ## Setup The Enviroment <a hreaf="#setup"></a>
 ### Summary <a href="#setup-summary"></a>
@@ -74,7 +72,6 @@ Or
 ```
 
 ---
----
 ## How To Run / Use Pytest <a name="how"></a>
 ---
 ### Summary <a name="how-summary"></a>
@@ -83,7 +80,11 @@ Or
 - [Assertions](#assertions)
     - [Introduction]()
     - [Uses](#assertion-uses)
-- [Mark decorator]()
+- [Mark decorators](#mark-decorators)
+    - [Introduction](#mark-intro)
+    - [Skip](#skip)
+    - [Skip if](#skip-if)
+    - [xFail](#xfail)
 - [Testing](#testing)
     - [Testing a single file](#testing-a-single-file)
     - [Testing a single function](#testing-a-single-function)
@@ -114,6 +115,27 @@ In this case once the pytest runs these functions it’ll get a failed test (for
 
 #### Uses <a name="assertion-uses"></a>
 Assertions can be made with python operators. Besides that, they are commonly used together with the pytest mark decorator. See more more details at the [pytest documentation](https://docs.pytest.org/en/7.1.x/how-to/assert.html). 
+
+---
+### Mark Decorators
+#### Introduction <a name="mark-intro"></a>
+Mark decorators are really usefull on helping managing how tests should be handled. For more information find out at the [pytest documentation](https://docs.pytest.org/en/stable/reference/reference.html#marks). Furthermore pytest should be imported prior to the use of the mark decorators.
+An example of how to place a decorator on a test could be:
+```python
+import pytest
+
+@pytest.mark.skip(reason="No need to test this obvious thing!")
+def test_1_equals_1():
+	assert 1 == 1
+```
+#### Skip
+The skip mark `pytest.mark.skip(reason=None)` is usefull to make a test be skipped from the testings, simply because a test has this decorator. The reason parameter is used on pytest verbose `pytest -v` or `pytest -vv` (more info on pytest flags are [here](#most-common-pytest-flags)) to show a message to explain why that test was skipped.
+
+#### Skip If
+Skip if works almost the same way as the [skip](#skip). The main difference is that it is skipped based on a condition. `pytest.mark.skipif(condition, *,reason=None)` thats how the decorator is defined, the condition parameter must have a boolean value.
+
+#### xFail
+It marks tests that are expected to fail. In case the test has this mark and fails pytest will show it as `XFAIL` in case it fails, otherwise it will be show as `XPASS` (unless the strict parameter is True, in this case the test will be show as a `FAIL`). This mark accepts a lot of parameters, it’s defined as `pytest.mark.xfail(condition=False, *, reason=None, raises=None, run=True, strict=xfail_strict)`.
 
 ---
 ### Testing
@@ -159,5 +181,4 @@ On the code above, pytest will look for all tests that might have http or quick 
 3. **-tb=no**: Turns off traceback messages of pytest.
 4. **-k**: Defines a search pattern for pytest searching of functions.
 
- ---
 ---
