@@ -85,6 +85,9 @@ Or
     - [Skip](#skip)
     - [Skip if](#skip-if)
     - [xFail](#xfail)
+- [Fixture decorator](#fixture-decorator)
+    - [Introduction](#fixture-intro)
+    - [Scopes](#fixture-scopes)    
 - [Testing](#testing)
     - [Testing a single file](#testing-a-single-file)
     - [Testing a single function](#testing-a-single-function)
@@ -102,7 +105,7 @@ Pytest follows a few conventions for discovering test files (as explained on the
 ---
 ### Assertions
 #### Introduction
-Python has a built-in tool named assert wich is used to check a set of defined conditions.
+Python has a built-in tool named assert which is used to check a set of defined conditions.
 For Example:
 ```python
 def test_2_greater_than_3():
@@ -136,6 +139,21 @@ Skip if works almost the same way as the [skip](#skip). The main difference is t
 
 #### xFail
 It marks tests that are expected to fail. In case the test has this mark and fails pytest will show it as `XFAIL` in case it fails, otherwise it will be show as `XPASS` (unless the strict parameter is True, in this case the test will be show as a `FAIL`). This mark accepts a lot of parameters, it’s defined as `pytest.mark.xfail(condition=False, *, reason=None, raises=None, run=True, strict=xfail_strict)`.
+
+---
+### Fixture Decorator
+#### Introduction <a name="fixture-intro"></a>
+Fixtures are functions that take the `pytest.fixture()` decorator. Fixtures are reponsible of sending data that can be get after some coding, for example after a querie on a database. Their main utility is improving the readability and reuse of code. The whole signature / how the pytest fixture is defined is:
+`@fixture(fixture_function: FixtureFunction, *, scope: `[Literal](https://docs.python.org/3/library/typing.html#typing.Literal "(in Python v3.12)")`['session', 'package', 'module', 'class', 'function'] | `[Callable](https://docs.python.org/3/library/typing.html#typing.Callable "(in Python v3.12)")`[[`[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.12)")`,` [Config](https://docs.pytest.org/en/stable/reference/reference.html#pytest.Config "_pytest.config.Config")`], `[Literal](https://docs.python.org/3/library/typing.html#typing.Literal "(in Python v3.12)")`['session', 'package', 'module', 'class', 'function']] = 'function', params: `[Iterable](https://docs.python.org/3/library/typing.html#typing.Iterable "(in Python v3.12)")`[`[object](https://docs.python.org/3/library/functions.html#object "(in Python v3.12)")`] | `[None](https://docs.python.org/3/library/constants.html#None "(in Python v3.12)")` = None, autouse: `[bool](https://docs.python.org/3/library/functions.html#bool "(in Python v3.12)")` = False, ids: `[Sequence](https://docs.python.org/3/library/typing.html#typing.Sequence "(in Python v3.12)")`[`[object](https://docs.python.org/3/library/functions.html#object "(in Python v3.12)")` | `[None](https://docs.python.org/3/library/constants.html#None "(in Python v3.12)")`] | `[Callable](https://docs.python.org/3/library/typing.html#typing.Callable "(in Python v3.12)")`[[`[Any](https://docs.python.org/3/library/typing.html#typing.Any "(in Python v3.12)")`], `[object](https://docs.python.org/3/library/functions.html#object "(in Python v3.12)")` | `[None](https://docs.python.org/3/library/constants.html#None "(in Python v3.12)")`] | `[None](https://docs.python.org/3/library/constants.html#None "(in Python v3.12)")` = None, name: `[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.12)")` | `[None](https://docs.python.org/3/library/constants.html#None "(in Python v3.12)")` = None)`
+
+The official [pytest documentation](https://docs.pytest.org/en/stable/reference/reference.html#pytest.fixture) has more informations about it, for further reading there’s also [here](https://docs.pytest.org/en/stable/reference/fixtures.html#fixture) to look at.
+
+#### Scopes <a name="fixture-scopes"></a>
+The scopes of fixtures determine for how long a fixture is going to last untill it’s teardown. If a fixture has scope moudule all test in the same model will share the same fixture, the same will happen with the other scopes. The possible scopes are `session`, `package`, `module`, `class`, `function`. By default the `function` scope is used when using fixtures.
+The scope order is `package` -> `class` -> `module` -> `session` -> `function`
+
+#### Shared File <a name="fixtures-shared-file">
+Pytest is able to locate fixtures on a file automatically applying them to the same directory by having them on a file named `conftest.py`. The fixtures in this file doen’t even need to be imported into the test files, pytest does all the heavy work. 
 
 ---
 ### Testing
@@ -180,5 +198,6 @@ On the code above, pytest will look for all tests that might have http or quick 
 2. **-vv**: Makes the pytest output even more verbose, in case of errors it will show each occurance that was different from what was expected.
 3. **-tb=no**: Turns off traceback messages of pytest.
 4. **-k**: Defines a search pattern for pytest searching of functions.
+5. **--setup-show**: Shows the setup and teardown of fixtures while exectuing tests. Pytest divides the fixtures show by test functions. 
 
 ---
