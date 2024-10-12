@@ -87,7 +87,11 @@ Or
     - [xFail](#xfail)
 - [Fixture decorator](#fixture-decorator)
     - [Introduction](#fixture-intro)
-    - [Scopes](#fixture-scopes)    
+    - [Parameters](#fixture-parameters)
+        - [Scopes](#fixture-scopes)
+        - [Autouse](#fixture-autouse)
+        - [Name](#fixture-name)
+    - [Shared file](#fixtures-shared-file)
 - [Testing](#testing)
     - [Testing a single file](#testing-a-single-file)
     - [Testing a single function](#testing-a-single-function)
@@ -148,11 +152,18 @@ Fixtures are functions that take the `pytest.fixture()` decorator. Fixtures are 
 
 The official [pytest documentation](https://docs.pytest.org/en/stable/reference/reference.html#pytest.fixture) has more informations about it, for further reading there’s also [here](https://docs.pytest.org/en/stable/reference/fixtures.html#fixture) to look at.
 
+### Parameters <a name="fixture-parameters"></a>
 #### Scopes <a name="fixture-scopes"></a>
 The scopes of fixtures determine for how long a fixture is going to last untill it’s teardown. If a fixture has scope moudule all test in the same model will share the same fixture, the same will happen with the other scopes. The possible scopes are `session`, `package`, `module`, `class`, `function`. By default the `function` scope is used when using fixtures.
 The scope order is `package` -> `class` -> `module` -> `session` -> `function`
 
-#### Shared File <a name="fixtures-shared-file">
+#### Autouse <a name=”fixture-autouse”></a>
+This parameter, when set to `TRUE`, makes all tests request them. For more information on this look at the [pytest documentation](https://docs.pytest.org/en/stable/how-to/fixtures.html#autouse-fixtures-fixtures-you-don-t-have-to-request).
+
+#### Name <a name=”fixture-name”></a>
+If a fixture should be called differently from how it was defined, the name parameter can define a call name for the fixture.
+
+### Shared File <a name="fixtures-shared-file">
 Pytest is able to locate fixtures on a file automatically applying them to the same directory by having them on a file named `conftest.py`. The fixtures in this file doen’t even need to be imported into the test files, pytest does all the heavy work. 
 
 ---
@@ -194,10 +205,13 @@ There are a few options for this.
 On the code above, pytest will look for all tests that might have http or quick some where on their names, taking the current working directory (pwd) where it was used as starting point. For info there is the [pytest documentation](https://docs.pytest.org/en/stable/example/markers.html#using-k-expr-to-select-tests-based-on-their-name).
 
 #### Most Common Pytest Flags
-1. **-v**: This flag makes the pytest verbose.
-2. **-vv**: Makes the pytest output even more verbose, in case of errors it will show each occurance that was different from what was expected.
-3. **-tb=no**: Turns off traceback messages of pytest.
-4. **-k**: Defines a search pattern for pytest searching of functions.
-5. **--setup-show**: Shows the setup and teardown of fixtures while exectuing tests. Pytest divides the fixtures show by test functions. 
+1. `-v`: This flag makes the pytest verbose.
+2. `-vv`: Makes the pytest output even more verbose, in case of errors it will show each occurance that was different from what was expected.
+3. `-tb=no`: Turns off traceback messages of pytest.
+4. `-k`: Defines a search pattern for pytest searching of functions.
+5. `--setup-show`: Shows the setup and teardown of fixtures while exectuing tests. Pytest divides the fixtures show by test functions.
+6. `--fixtures`: Shows the available fixtures.
+7. `--fixtures-per-text`: Shows the fixtures used on each test, and where they are defined.
+8. `-s`: Turns off the output capture. Pytest, by default, only prints the output of failed tests.
 
 ---
