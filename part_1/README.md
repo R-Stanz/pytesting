@@ -205,13 +205,13 @@ There are a few options for this.
 On the code above, pytest will look for all tests that might have http or quick some where on their names, taking the current working directory (pwd) where it was used as starting point. For info there is the [pytest documentation](https://docs.pytest.org/en/stable/example/markers.html#using-k-expr-to-select-tests-based-on-their-name).
 
 #### Most Common Pytest Flags
-1. `-v`: This flag makes the pytest verbose.
-2. `-vv`: Makes the pytest output even more verbose, in case of errors it will show each occurance that was different from what was expected.
-3. `-tb=no`: Turns off traceback messages of pytest.
-4. `-k`: Defines a search pattern for pytest searching of functions.
-5. `--setup-show`: Shows the setup and teardown of fixtures while exectuing tests. Pytest divides the fixtures show by test functions.
-6. `--fixtures`: Shows the available fixtures.
-7. `--fixtures-per-text`: Shows the fixtures used on each test, and where they are defined.
-8. `-s`: Turns off the output capture. Pytest, by default, only prints the output of failed tests.
+* `-v`: This flag makes the pytest verbose.
+* `-vv`: Makes the pytest output even more verbose, in case of errors it will show each occurance that was different from what was expected.
+* `-tb=no`: Turns off traceback messages of pytest.
+* `-k`: Defines a search pattern for pytest searching of functions.
+* `--setup-show`: Shows the setup and teardown of fixtures while exectuing tests. Pytest divides the fixtures show by test functions.
+* `--fixtures`: Shows the available fixtures.
+* `--fixtures-per-text`: Shows the fixtures used on each test, and where they are defined.
+* `-s`: Turns off the output capture. Pytest, by default, only prints the output of failed tests.
 
 ---
