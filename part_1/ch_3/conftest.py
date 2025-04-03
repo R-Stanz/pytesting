@@ -21,11 +21,11 @@ def pytest_addoption(parser):
 @pytest.fixture(scope="session")
 def some_cards():
     return [
-            cards.Card("write book", "Brian", "done"),
-            cards.Card("edit book", "Katie", "done"),
-            cards.Card("write 2nd edition", "Brian", "todo"),
-            cards.Card("edit 2nd edition", "Katie", "todo"),
-            ]
+        cards.Card("write book", "Brian", "done"),
+        cards.Card("edit book", "Katie", "done"),
+        cards.Card("write 2nd edition", "Brian", "todo"),
+        cards.Card("edit 2nd edition", "Katie", "todo"),
+    ]
 
 
 @pytest.fixture(scope=db_scope)

@@ -155,7 +155,8 @@ The official [pytest documentation](https://docs.pytest.org/en/stable/reference/
 ### Parameters <a name="fixture-parameters"></a>
 #### Scopes <a name="fixture-scopes"></a>
 The scopes of fixtures determine for how long a fixture is going to last untill it’s teardown. If a fixture has scope moudule all test in the same model will share the same fixture, the same will happen with the other scopes. The possible scopes are `session`, `package`, `module`, `class`, `function`. By default the `function` scope is used when using fixtures.
-The scope order is `package` -> `class` -> `module` -> `session` -> `function`
+The scope order is `package` -> `class` -> `module` -> `session` -> `function`.
+A scope can also be set dynamically, for example by passing a function that changes the values based on conditions - in the book there is an example where the function changes it scope based on the presence of a flag when calling pytest.
 
 #### Autouse <a name=”fixture-autouse”></a>
 This parameter, when set to `TRUE`, makes all tests request them. For more information on this look at the [pytest documentation](https://docs.pytest.org/en/stable/how-to/fixtures.html#autouse-fixtures-fixtures-you-don-t-have-to-request).

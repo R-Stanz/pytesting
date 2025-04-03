@@ -16,7 +16,7 @@ It has the book "Python testing with pytesting" as main source.
 #### 1. Primary Power
 1. [x] Getting Started With Pytest
 2. [x] Writing Test Functions
-3. [ ] Pytest Fixtures
+3. [x] Pytest Fixtures
 4. [ ] Builtin Fixtures
 5. [ ] Parametrization
 6. [ ] Markers
