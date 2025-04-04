@@ -98,6 +98,7 @@ Or
 		* [tmp_path_factory](#tmp_path_factory)
 		* [tmpdir and tmpdir_factory](#tmpdir)
 	+ [Output capture](#output-capture)
+	+ [monkeypatch](#monkeypatch)
 - [Testing](#testing)
     - [Testing a single file](#testing-a-single-file)
     - [Testing a single function](#testing-a-single-function)
@@ -223,6 +224,16 @@ These are legacy ways of dealing with temporary directories and files. They work
 #### Output capture <a name="output-capture"></a>
 All the fixtures in this section allow access to `stdout`/`stderr` output created during test execution. The [official documentation](https://docs.pytest.org/en/stable/how-to/capture-stdout-stderr.html) also has some examples. <br>
 The main fixtures are `capsys`, `capfd`, `capsbinary`, `capfdbbinary` and `caplog` - that is the only one that [works a little different from the others](https://docs.pytest.org/en/stable/reference/reference.html#std-fixture-caplog). 
+
+#### monkeypatch <a name="monkeypatch"></a>
+A fixture to a fixture that allows to make objects, dictionaries and enviroment variables modifications that can make them more convinent for testing. The documentation can be found [here](https://docs.pytest.org/en/stable/reference/reference.html#std-fixture-monkeypatch).<br>
+List of functions of the monketpatch fixture (quoting the book):
+- setattr(target, name, value, raising=True) -> Sets an attribute;
+- delattr(target, name, raising=True) -> Deletes an attribute;
+- setitem(dic, name, value) -> Sets a dictionary entry;
+- delitem(dic, name, raising=True) -> Deletes a dictionary entry;
+- syspath_prepend(path) -> Prepends path to sys.path, wich is Python's list of import locations;
+- chdir(path) -> Changes the current working directory.
 
 ---
 ### Testing
