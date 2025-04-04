@@ -97,6 +97,7 @@ Or
 		* [tmp_path](#tmp_path)
 		* [tmp_path_factory](#tmp_path_factory)
 		* [tmpdir and tmpdir_factory](#tmpdir)
+	+ [Output capture](#output-capture)
 - [Testing](#testing)
     - [Testing a single file](#testing-a-single-file)
     - [Testing a single function](#testing-a-single-function)
@@ -218,6 +219,10 @@ def test_histogram(image_file):
 
 ##### tmpdir and tmpdir_factory <a name="tmpdir"></a>
 These are legacy ways of dealing with temporary directories and files. They work in the same way of the above builtin fixtures with the exception that they use [py.path.local](https://py.readthedocs.io/en/latest/path.html) instead of the [pathlib.Path](https://docs.python.org/3/library/pathlib.html#pathlib.Path).
+
+#### Output capture <a name="output-capture"></a>
+All the fixtures in this section allow access to `stdout`/`stderr` output created during test execution. The [official documentation](https://docs.pytest.org/en/stable/how-to/capture-stdout-stderr.html) also has some examples. <br>
+The main fixtures are `capsys`, `capfd`, `capsbinary`, `capfdbbinary` and `caplog` - that is the only one that [works a little different from the others](https://docs.pytest.org/en/stable/reference/reference.html#std-fixture-caplog). 
 
 ---
 ### Testing
