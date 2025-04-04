@@ -92,6 +92,11 @@ Or
         - [Autouse](#fixture-autouse)
         - [Name](#fixture-name)
     - [Shared file](#fixtures-shared-file)
+- [Builtin Fixture](#builtin-fixture)
+	+ [Temporary directories and files](#temporary-directories-and-files)
+		* [tmp_path](#tmp_path)
+		* [tmp_path_factory](#tmp_path_factory)
+		* [tmpdir and tmpdir_factory](#tmpdir)
 - [Testing](#testing)
     - [Testing a single file](#testing-a-single-file)
     - [Testing a single function](#testing-a-single-function)
@@ -100,7 +105,7 @@ Or
 
 ---
 ### Conventions
-Pytest follows a few conventions for discovering test files (as explained on the [pytest documentation](https://docs.pytest.org/en/7.1.x/explanation/goodpractices.html)). Making it simple, the rules for pytest default discovery/conventions:
+Pytest follows a few conventions for discovering test files (as explained on the [pytest documentation](https://docs.pytest.org/en/7.1.x/explanation/goodpractices.html)). Making it simple, the rules for pytest default discovery / conventions:
 
 - Test files must have the regex test_*.py or *_test.py in order to be found.
 - Functions and methods must start with test_ on their names.
@@ -145,27 +150,74 @@ Skip if works almost the same way as the [skip](#skip). The main difference is t
 It marks tests that are expected to fail. In case the test has this mark and fails pytest will show it as `XFAIL` in case it fails, otherwise it will be show as `XPASS` (unless the strict parameter is True, in this case the test will be show as a `FAIL`). This mark accepts a lot of parameters, it’s defined as `pytest.mark.xfail(condition=False, *, reason=None, raises=None, run=True, strict=xfail_strict)`.
 
 ---
-### Fixture Decorator
+### Fixture Decorator <a name="fixture-decorator"></a>
 #### Introduction <a name="fixture-intro"></a>
 Fixtures are functions that take the `pytest.fixture()` decorator. Fixtures are reponsible of sending data that can be get after some coding, for example after a querie on a database. Their main utility is improving the readability and reuse of code. The whole signature / how the pytest fixture is defined is:
 `@fixture(fixture_function: FixtureFunction, *, scope: `[Literal](https://docs.python.org/3/library/typing.html#typing.Literal "(in Python v3.12)")`['session', 'package', 'module', 'class', 'function'] | `[Callable](https://docs.python.org/3/library/typing.html#typing.Callable "(in Python v3.12)")`[[`[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.12)")`,` [Config](https://docs.pytest.org/en/stable/reference/reference.html#pytest.Config "_pytest.config.Config")`], `[Literal](https://docs.python.org/3/library/typing.html#typing.Literal "(in Python v3.12)")`['session', 'package', 'module', 'class', 'function']] = 'function', params: `[Iterable](https://docs.python.org/3/library/typing.html#typing.Iterable "(in Python v3.12)")`[`[object](https://docs.python.org/3/library/functions.html#object "(in Python v3.12)")`] | `[None](https://docs.python.org/3/library/constants.html#None "(in Python v3.12)")` = None, autouse: `[bool](https://docs.python.org/3/library/functions.html#bool "(in Python v3.12)")` = False, ids: `[Sequence](https://docs.python.org/3/library/typing.html#typing.Sequence "(in Python v3.12)")`[`[object](https://docs.python.org/3/library/functions.html#object "(in Python v3.12)")` | `[None](https://docs.python.org/3/library/constants.html#None "(in Python v3.12)")`] | `[Callable](https://docs.python.org/3/library/typing.html#typing.Callable "(in Python v3.12)")`[[`[Any](https://docs.python.org/3/library/typing.html#typing.Any "(in Python v3.12)")`], `[object](https://docs.python.org/3/library/functions.html#object "(in Python v3.12)")` | `[None](https://docs.python.org/3/library/constants.html#None "(in Python v3.12)")`] | `[None](https://docs.python.org/3/library/constants.html#None "(in Python v3.12)")` = None, name: `[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.12)")` | `[None](https://docs.python.org/3/library/constants.html#None "(in Python v3.12)")` = None)`
 
 The official [pytest documentation](https://docs.pytest.org/en/stable/reference/reference.html#pytest.fixture) has more informations about it, for further reading there’s also [here](https://docs.pytest.org/en/stable/reference/fixtures.html#fixture) to look at.
 
-### Parameters <a name="fixture-parameters"></a>
-#### Scopes <a name="fixture-scopes"></a>
+#### Parameters <a name="fixture-parameters"></a>
+##### Scopes <a name="fixture-scopes"></a>
 The scopes of fixtures determine for how long a fixture is going to last untill it’s teardown. If a fixture has scope moudule all test in the same model will share the same fixture, the same will happen with the other scopes. The possible scopes are `session`, `package`, `module`, `class`, `function`. By default the `function` scope is used when using fixtures.
 The scope order is `package` -> `class` -> `module` -> `session` -> `function`.
 A scope can also be set dynamically, for example by passing a function that changes the values based on conditions - in the book there is an example where the function changes it scope based on the presence of a flag when calling pytest.
 
-#### Autouse <a name=”fixture-autouse”></a>
+##### Autouse <a name=”fixture-autouse”></a>
 This parameter, when set to `TRUE`, makes all tests request them. For more information on this look at the [pytest documentation](https://docs.pytest.org/en/stable/how-to/fixtures.html#autouse-fixtures-fixtures-you-don-t-have-to-request).
 
-#### Name <a name=”fixture-name”></a>
+##### Name <a name=”fixture-name”></a>
 If a fixture should be called differently from how it was defined, the name parameter can define a call name for the fixture.
 
-### Shared File <a name="fixtures-shared-file">
+#### Shared File <a name="fixtures-shared-file"></a>
 Pytest is able to locate fixtures on a file automatically applying them to the same directory by having them on a file named `conftest.py`. The fixtures in this file doen’t even need to be imported into the test files, pytest does all the heavy work. 
+
+---
+### Builtin Fixtures <a name="builtin-fixture"></a>
+#### Temporary directories and files <a name="#temporary-directories-and-files"></a>
+Tests can be performed with files that are created during the tests. Pytest already uses a default directory store the temporary directories and files, but that can be changed if the pytest command has the flag `--basetemp=<path_to_temporary_directory>` the temporary directory is wiped before being used (in case there was already a directory with the same name before) or is created (in case there was no other directory with the same path). Pytest, after some time, **automatically deletes the contents of the temporary base directory!** For more info there you can check the [official documentation](https://docs.pytest.org/en/stable/how-to/tmp_path.html).
+
+##### tmp_path <a name="tmp_path"></a>
+This works as an object that contains methods to handle a temporary directory - one for each test function (function scope), by default. Sub-directories to the temporary base directory can be created with the `.mkdir()` method and temporary files as in the example bellow:
+```python3
+# content of test_tmp_path.py
+CONTENT = "content"
+
+
+def test_create_file(tmp_path):
+    d = tmp_path / "sub"
+    d.mkdir()
+    p = d / "hello.txt"
+    p.write_text(CONTENT, encoding="utf-8")
+    assert p.read_text(encoding="utf-8") == CONTENT
+    assert len(list(tmp_path.iterdir())) == 1
+    assert 0
+```
+
+
+##### tmp_path_factory <a name="tmp_path_factory"></a>
+Pretty similar to the [tmp_paht](tmp_path-fixture) but it works following the factory desing pattern. Bellow there is an example to save a image while using a session scope:
+```
+# contents of conftest.py
+import pytest
+
+
+@pytest.fixture(scope="session")
+def image_file(tmp_path_factory):
+    img = compute_expensive_image()
+    fn = tmp_path_factory.mktemp("data") / "img.png"
+    img.save(fn)
+    return fn
+
+
+# contents of test_image.py
+def test_histogram(image_file):
+    img = load_image(image_file)
+    # compute and test histogram
+```
+
+##### tmpdir and tmpdir_factory <a name="tmpdir"></a>
+These are legacy ways of dealing with temporary directories and files. They work in the same way of the above builtin fixtures with the exception that they use [py.path.local](https://py.readthedocs.io/en/latest/path.html) instead of the [pathlib.Path](https://docs.python.org/3/library/pathlib.html#pathlib.Path).
 
 ---
 ### Testing
